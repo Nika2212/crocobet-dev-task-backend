@@ -9,11 +9,13 @@ export function authenticate(req: Request, res: Response, next: Function) {
   const accessToken = req.header('Authorization');
 
   if (!accessToken) {
+    Logger.Warn("No token provided", "Authenticate")
     return res.sendStatus(401);
   }
 
   jwt.verify(accessToken, SECRET_KEY, ((err, decoded: JWTContainerType) => {
     if (err) {
+      Logger.Warn(err.message, "Authenticate")
       return res.sendStatus(401);
     }
 

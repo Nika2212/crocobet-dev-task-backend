@@ -32,4 +32,18 @@ export class AuthController {
 
     res.json(model);
   }
+
+  public async CheckUsername(req: Request, res: Response): Promise<void> {
+    const username = req.body.Username as string;
+    const model = await this._authService.CheckUsername(username);
+
+    res.json(model);
+  }
+
+  public async Ping(req: Request, res: Response): Promise<void> {
+    const id = req.id;
+    const model = await this._authService.Ping(id);
+
+    res.json(model);
+  }
 }

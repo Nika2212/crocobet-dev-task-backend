@@ -31,6 +31,10 @@ export class Router {
       .post((req: Request, res: Response) => this._authController.Register(req, res));
     this._express.route('/api/Auth/Authorize')
       .post((req: Request, res: Response) => this._authController.Authorize(req, res));
+    this._express.route('/api/Auth/CheckUsername')
+      .post((req: Request, res: Response) => this._authController.CheckUsername(req, res));
+    this._express.route('/api/Auth/Ping')
+      .get(authenticate, (req: Request, res: Response) => this._authController.Ping(req, res));
 
     this._express.route('/api/Users/Get')
       .get(authenticate, (req: Request, res: Response) => this._usersController.Get(req, res));
@@ -45,7 +49,7 @@ export class Router {
       .post(authenticate, (req: Request, res: Response) => this._todosController.Create(req, res));
     this._express.route('/api/Todos/Update')
       .put(authenticate, (req: Request, res: Response) => this._todosController.Update(req, res));
-    this._express.route('/api/Todos/Remove')
+    this._express.route('/api/Todos/Remove/:id')
       .delete(authenticate, (req: Request, res: Response) => this._todosController.Remove(req, res));
   }
 }

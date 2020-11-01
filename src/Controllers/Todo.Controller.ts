@@ -55,7 +55,7 @@ export class TodoController {
   }
 
   public async Remove(req: Request, res: Response): Promise<void> {
-    const id = req.body?.Id;
+    const id = req.params.id;
     const model = await this._todoService.Remove(id);
 
     res.json(model);

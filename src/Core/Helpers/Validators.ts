@@ -22,17 +22,17 @@ export const validateAuthorizeUserDTO = Joi.object({
 
 export const validateCreateTodoDTO = Joi.object({
   Title: Joi.string().min(1).max(255).required(),
-  Description: Joi.string().max(255 * 255).allow(null, '').required(),
+  Description: Joi.string().max(255 * 255).allow(null, ''),
   Status: Joi.bool().required(),
   ExpirationDate: Joi.date().timestamp().allow(null).required(),
-  AssignedUserIds: Joi.array().items(string().hex()).unique().required()
+  AssignedUserIds: Joi.array().min(1).items(string().hex()).unique().required()
 });
 
 export const validateUpdateTodoDTO = Joi.object({
   Id: Joi.string().required(),
   Title: Joi.string().min(1).max(255).required(),
-  Description: Joi.string().max(255 * 255).allow(null, '').required(),
+  Description: Joi.string().max(255 * 255).allow(null, ''),
   Status: Joi.bool().required(),
   ExpirationDate: Joi.date().timestamp().allow(null).required(),
-  AssignedUserIds: Joi.array().items(string().hex()).unique().required()
+  AssignedUserIds: Joi.array().min(1).items(string().hex()).unique().required()
 });

@@ -2,7 +2,6 @@ import { UserRepository } from '../Repositories/User.Repository';
 import { UserRepositoryInjector } from '../Core/Modules/Injector';
 import { RegisterDTO } from '../DTOs/Register.DTO';
 import { BaseResponse } from '../Core/Models/BaseResponse.Model';
-import { UserDTO } from '../DTOs/User.DTO';
 import { validateAuthorizeUserDTO, validateCreateUserDTO } from '../Core/Helpers/Validators';
 import { ErrorCodes } from '../Core/Enums/ErrorCodes';
 import { Mapper } from '../Core/Modules/Mapper';
@@ -11,6 +10,7 @@ import { decrypt } from '../Core/Helpers/Crypt';
 import { Logger } from '../Core/Modules/Logger';
 import { AuthorizedUserDTO } from '../DTOs/AuthorizedUser.DTO';
 import { generateToken } from '../Core/Helpers/JWT';
+import { UserDTO } from '../DTOs/User.DTO';
 
 export class AuthService {
   private _userRepository: UserRepository;
@@ -83,5 +83,27 @@ export class AuthService {
     Logger.Info(`User: ${userDTO.Username} - Authorized`, "AUTH SERVICE");
 
     return BaseResponse.GetSuccessResponse(authorizedUserDTO);
+  }
+
+  public async CheckUsername(username: string): Promise<BaseResponse<boolean>> {
+    const model = await this._userRepository.GetByUsername(username);
+
+    if (!model) {
+      return BaseResponse.GetErrorResponse(ErrorCodes.USERNAME_NOT_FOUND);
+    } else {
+      return BaseResponse.GetSuccessResponse(true);
+    }
+  }
+
+  public async Ping(id: string): Promise<BaseResponse<UserDTO>> {
+    const model = await this._userRepository.GetById(id);
+
+    if (!model) {
+      return BaseResponse.GetErrorResponse(ErrorCodes.USER_NOT_FOUND);
+    }
+
+    const userDTO = Mapper.UserEntity_UserDTO(model);
+
+    return BaseResponse.GetSuccessResponse(userDTO);
   }
 }
