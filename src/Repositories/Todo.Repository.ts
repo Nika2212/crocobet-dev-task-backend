@@ -46,6 +46,7 @@ export class TodoRepository {
       Title: updateTodoDTO.Title,
       Description: updateTodoDTO.Description,
       Status: updateTodoDTO.Status,
+      ExpirationDate: updateTodoDTO.ExpirationDate,
       AssignedUserIds: updateTodoDTO.AssignedUserIds
     });
 

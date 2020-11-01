@@ -27,29 +27,29 @@ export class Router {
   }
 
   public Route(): void {
-    this._express.route('/api/Auth/Register')
+    this._express.route('/Auth/Register')
       .post((req: Request, res: Response) => this._authController.Register(req, res));
-    this._express.route('/api/Auth/Authorize')
+    this._express.route('/Auth/Authorize')
       .post((req: Request, res: Response) => this._authController.Authorize(req, res));
-    this._express.route('/api/Auth/CheckUsername')
+    this._express.route('/Auth/CheckUsername')
       .post((req: Request, res: Response) => this._authController.CheckUsername(req, res));
-    this._express.route('/api/Auth/Ping')
+    this._express.route('/Auth/Ping')
       .get(authenticate, (req: Request, res: Response) => this._authController.Ping(req, res));
 
-    this._express.route('/api/Users/Get')
+    this._express.route('/Users/Get')
       .get(authenticate, (req: Request, res: Response) => this._usersController.Get(req, res));
 
-    this._express.route('/api/Todos/Get')
+    this._express.route('/Todos/Get')
       .get(authenticate, (req: Request, res: Response) => this._todosController.Get(req, res));
-    this._express.route('/api/Todos/GetCurrentUserBased')
+    this._express.route('/Todos/GetCurrentUserBased')
       .get(authenticate, (req: Request, res: Response) => this._todosController.GetCurrentUserBased(req, res));
-    this._express.route('/api/Todos/GetUserBased/:id')
+    this._express.route('/Todos/GetUserBased/:id')
       .get(authenticate, (req: Request, res: Response) => this._todosController.GetUserBased(req, res));
-    this._express.route('/api/Todos/Create')
+    this._express.route('/Todos/Create')
       .post(authenticate, (req: Request, res: Response) => this._todosController.Create(req, res));
-    this._express.route('/api/Todos/Update')
+    this._express.route('/Todos/Update')
       .put(authenticate, (req: Request, res: Response) => this._todosController.Update(req, res));
-    this._express.route('/api/Todos/Remove/:id')
+    this._express.route('/Todos/Remove/:id')
       .delete(authenticate, (req: Request, res: Response) => this._todosController.Remove(req, res));
   }
 }
